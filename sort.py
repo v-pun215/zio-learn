@@ -34,7 +34,6 @@ def mergesort(arr):
         return arr
     total_len = len(arr) # get total number of items in list
     left_halve, right_halve = arr[:total_len//2], arr[total_len//2:] #get left and right halves or array as seperate arrays
-    print("left:",left_halve,"+ right:", right_halve)
     left_halve = mergesort(left_halve)
     right_halve = mergesort(right_halve)
     return merge_arrays(left_halve, right_halve)
@@ -44,3 +43,33 @@ def test_mergesort():
     print(mergesort(arr))
 
 # quicksort
+'''
+(1) Take any element as pivot (here, first element)
+(2) Divide array into two arrays (without pivot), one array containing elements greater and one array containing lesser than pivot.
+(3) Recursively, sort the two arrays so formed.
+(4) Finally, merge the 3 arrays together (less_pivot + pivot + more_pivot)
+'''
+def quicksort(arr):
+    if len(arr)<=1:
+        return arr
+    pivot = arr[0]
+    arr_without_pivot = arr[:0] + arr[0 +1:]
+    less_pivot = []
+    more_pivot = []
+    for element in arr_without_pivot:
+        if element<=pivot:
+            less_pivot.append(element)
+        else:
+            more_pivot.append(element)
+    
+    less_pivot = quicksort(less_pivot)
+    more_pivot = quicksort(more_pivot)
+
+
+    # merge
+    sorted = less_pivot + [pivot] + more_pivot
+
+    return sorted
+
+arr = [7,1,3,5,7,2,3,7,9,10,239,43289473289473298,128937,54983275,4298439]
+print(quicksort(arr))
